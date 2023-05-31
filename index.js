@@ -1,4 +1,44 @@
+const express = require('express');
+const morgan = require('morgan');
+const cors = require('cors');
+const app = express();
+morgan.token('data', (req, res) => `{"name":${req.body.name},"number":${req.body.number}}`)//create new token
+app.use(morgan(':method :url :status :res[content-length] -:response-time ms :data')) // morgan reconfigured by new token created
+app.use(cors());
+app.use(express.json());
+persons = [
+    {
+        "id": 1,
+        "name": "Arto Hellas",
+        "number": "040-123456"
+    },
+    {
+        "id": 2,
+        "name": "Ada Lovelace",
+        "number": "39-44-5323523"
+    },
+    {
+        "id": 3,
+        "name": "Dan Abramov",
+        "number": "12-43-234345"
+    },
+    {
+        "id": 4,
+        "name": "Mary Poppendieck",
+        "number": "39-23-6423122"
+    },
+    {
+        "id": 5,
+        "name": " Brother Poppendieck",
+        "number": "36-22-6524133"
 
+    },
+    {
+        "id": 7,
+        "name": "Matti Luukkai",
+        "number": "234-678-90"
+    }
+]
 
 app.delete('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id) // id must be a number
