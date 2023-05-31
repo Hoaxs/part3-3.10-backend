@@ -2,11 +2,12 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const app = express();
+app.use(morgan('tiny'))
 morgan.token('data', (req, res) => `{"name":${req.body.name},"number":${req.body.number}}`)//create new token
 app.use(morgan(':method :url :status :res[content-length] -:response-time ms :data')) // morgan reconfigured by new token created
 app.use(cors());
-app.use(express.static('build'))
 app.use(express.json());
+app.use(express.static('build'))
 persons = [
     {
         "id": 1,
